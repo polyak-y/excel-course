@@ -1,0 +1,24 @@
+{
+  "name": "minin_super_js",
+  "version": "1.0.0",
+  "description": "Pure Javascript exel Application",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/polyak-y/excel-course.git"
+  },
+  "keywords": [
+    "js",
+    "javascript",
+    "excel"
+  ],
+  "author": "vpolyakov <polyak-y@yandex.ru>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/polyak-y/excel-course/issues"
+  },
+  "homepage": "https://github.com/polyak-y/excel-course#readme"
+}
