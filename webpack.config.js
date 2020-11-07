@@ -9,6 +9,7 @@ const isProd = process.env.NODE_ENV === 'production';
 const isDev = !isProd;
 const filename = ext => isDev ? `bundle.${ext}` : `bundle.[hash].${ext}`;
 const jsLoaders = () => {
+
   const loaders = [
       {
         loader: "babel-loader",
@@ -19,7 +20,7 @@ const jsLoaders = () => {
   ];
 
   if(isDev) {
-    loader.push('eslint-loader')
+    loaders.push('eslint-loader')
   }
 
   return loaders;
