@@ -19,7 +19,7 @@ export class Excel {
       // }
 
       $el.html(component.toHTML());
-      $root.append/*  */($el);
+      $root.append($el);
       return component;
     });
     
