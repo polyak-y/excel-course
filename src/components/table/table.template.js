@@ -3,8 +3,8 @@ const CODES = {
   Z: 90
 }
 
-function createCell(ind) {
-  return `<div class="cell" contenteditable data-col="${ind}"></div>`
+function createCell(ind, rowNum) {
+  return `<div class="cell" contenteditable data-type="cell" data-col="${ind}" data-id="${rowNum}:${ind}"></div>`
 };
 
 function createCol(col, index) {
@@ -26,8 +26,8 @@ function createRow(content, i = '') {
   `
 };
 
-function multiCell (createCell, colsCount) {
-  return Array.from({length: colsCount}, (_, ind) => createCell(ind)).join('')
+function multiCell (createCell, colsCount, rowNum) {
+  return Array.from({length: colsCount}, (_, ind) => createCell(ind, rowNum)).join('')
 }
 
 export function createTable (rowsCount = 15) {
@@ -39,7 +39,7 @@ export function createTable (rowsCount = 15) {
   rows.push(createRow(cols)); //создали первую строку где ABCDE 
 
   for(let i = 0; i < rowsCount; i++) {
-    const content = multiCell(createCell, colsCount)
+    const content = multiCell(createCell, colsCount, i)
     rows.push(createRow(content, i + 1));
   }
 
