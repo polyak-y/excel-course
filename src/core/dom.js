@@ -1,73 +1,115 @@
 
 //внутри класса Dom this.$el - это дом-элемент
 class Dom {
-  constructor(selector) {
-    //#app
-    this.$el = typeof selector === 'string' 
-      ? document.querySelector(selector) 
-      : selector;
-  }
-
-  html(html) {
-    if(typeof html === 'string') {
-      this.$el.innerHTML = html;
-      return this;
+    constructor(selector) {
+        //#app
+        this.$el = typeof selector === 'string' 
+            ? document.querySelector(selector) 
+            : selector;
     }
 
-    return this.$el.outerHTML.trim();
-  } 
+    html(html) {
+        if(typeof html === 'string') {
+            this.$el.innerHTML = html;
+            return this;
+        }
 
-  clear() {
-    this.html('');
-    return this;
-  }
+        return this.$el.outerHTML.trim();
+    } 
 
-  on (eventType, callback) {
-    this.$el.addEventListener(eventType, callback)
-  }
+    text (text) {
+        if(typeof text === 'string') {
+             this.$el.textContent = text;
+             return this;
+        }
 
-  off(eventType, callback) {
-    this.$el.removeEventListener(eventType, callback)
-  }
+        if(this.$el.tagName.toLowerCase === 'input') {
+            return this.$el.value.trim()
+        }
+
+        return this.$el.textContent.trim()
+    }
+
+    clear() {
+        this.html('');
+        return this;
+    }
+  
+    on (eventType, callback) {
+        this.$el.addEventListener(eventType, callback)
+    }
+
+    off(eventType, callback) {
+        this.$el.removeEventListener(eventType, callback)
+    }
 
   //element
-  append(node) {
-    if(node instanceof Dom) {
-      node = node.$el
+    append(node) {
+        if(node instanceof Dom) {
+            node = node.$el
+        }
+
+        if(Element.prototype.append) {
+            this.$el.append(node)
+        } else {
+            this.$el.appendChild(node)
+        }
+
+        return this;
     }
 
-    if(Element.prototype.append) {
-      this.$el.append(node)
-    } else {
-      this.$el.appendChild(node)
+    closest(selector) {
+        return $(this.$el.closest(selector));
     }
 
-    return this;
-  }
-
-  closest(selector) {
-    return $(this.$el.closest(selector));
-  }
-
-  getCoords() {
-      return this.$el.getBoundingClientRect();
-  }
-
-  get data() {
-      return this.$el.dataset
-  }
-
-  findAll(selector) {
-      return this.$el.querySelectorAll(selector)
-  }
-
-  css(styles = {}) {
-    for(let key in styles) {
-        this.$el.style[key] = styles[key]
+    getCoords() {
+        return this.$el.getBoundingClientRect();
     }
 
-    return this
-  }
+    get data() {
+        return this.$el.dataset
+    }
+
+    id(parse) {
+        if(parse) {
+            const parses = this.id().split(':')
+
+            return {
+                row: +parses[0],
+                col: +parses[1],
+            }
+        }
+        return this.data.id
+    }
+
+    focus() {
+        this.$el.focus();
+        return this;
+    }
+
+    find(selector) {
+        return $(this.$el.querySelector(selector));
+    }
+
+    findAll(selector) {
+        return this.$el.querySelectorAll(selector)
+    }
+
+    css(styles = {}) {
+        for(let key in styles) {
+            this.$el.style[key] = styles[key]
+        }
+
+        return this
+    }
+
+    addClass(className) {
+        this.$el.classList.add(className)
+    }
+    
+    removeClass(className) {
+        this.$el.classList.remove(className)
+    }
 
 }
 
